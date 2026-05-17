@@ -1,66 +1,70 @@
-const { createElement } = require("react");
+console.log("JavaScript connected!");
 
-//Array to store task
+
+// Array to store tasks
 let tasks = [];
 
-//Get HTML elements
-
+// Get HTML elements
 const taskInput = document.getElementById("taskInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 
-//Add event listener to add button
-
+// Add event listener
 addTaskBtn.addEventListener("click", addTask);
 
-//Function to add task
+// Function to add task
+function addTask() {
 
-function addtask() {
     const taskText = taskInput.value;
 
-    //validate Input
-    if (taskText == "") {
+    // Validate input
+    if (taskText === "") {
+
         Swal.fire({
             icon: 'error',
-            title:'Oops...',
+            title: 'Oops...',
             text: 'Please enter a task!'
         });
+
         return;
     }
-    //Create task object
+
+    // Create task object
     const task = {
-        id : Date.now(),
-        text : taskText,
-        completed   : false
-    }
+        id: Date.now(),
+        text: taskText,
+        completed: false
+    };
 
-
-    //Add task to array
+    // Add task to array
     tasks.push(task);
 
-    //Display Task
+    // Display tasks
     displayTasks();
 
-    //clear input
+    // Clear input
     taskInput.value = "";
 
-    //succes message
+    // Success message
     Swal.fire({
-        icon: 'succes',
-        title: 'Task added'
-    })
+        icon: 'success',
+        title: 'Task Added!'
+    });
+}
 
-    //function display task
-    function displayTasks() {
-        //clear current list
-        taskList.innerHTML = "";
+// Function to display tasks
+function displayTasks() {
 
-        //Loop trough tasks
-        tasks.forEach(task =>{
-            const li = createElement("li");
-            li.textContent  = task.text;
-            taskList.appendChild(li);
-        })
-        
-    }
+    // Clear current list
+    taskList.innerHTML = "";
+
+    // Loop through tasks
+    tasks.forEach(task => {
+
+        const li = document.createElement("li");
+
+        li.textContent = task.text;
+
+        taskList.appendChild(li);
+    });
 }

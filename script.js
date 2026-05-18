@@ -1,70 +1,102 @@
-console.log("JavaScript connected!");
+    console.log("JavaScript connected!");
 
 
-// Array to store tasks
-let tasks = [];
+    // Array to store tasks
+    let tasks = [];
 
-// Get HTML elements
-const taskInput = document.getElementById("taskInput");
-const addTaskBtn = document.getElementById("addTaskBtn");
-const taskList = document.getElementById("taskList");
+    // Get HTML elements
+    const taskInput = document.getElementById("taskInput");
+    const addTaskBtn = document.getElementById("addTaskBtn");
+    const taskList = document.getElementById("taskList");
 
-// Add event listener
-addTaskBtn.addEventListener("click", addTask);
 
-// Function to add task
-function addTask() {
+    // Add event listener
+    addTaskBtn.addEventListener("click", addTask);
 
-    const taskText = taskInput.value;
+    // Function to add task
+    function addTask() {
 
-    // Validate input
-    if (taskText === "") {
+        const taskText = taskInput.value;
 
+        // Validate input
+        if (taskText === "") {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please enter a task!'
+            });
+
+            return;
+        }
+
+        // Create task object
+        const task = {
+            id: Date.now(),
+            text: taskText,
+            completed: false
+        };
+
+        // Add task to array
+        tasks.push(task);
+
+        // Display tasks
+        displayTasks();
+
+        // Clear input
+        taskInput.value = "";
+
+        // Success message
         Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Please enter a task!'
+            icon: 'success',
+            title: 'Task Added!'
         });
-
-        return;
     }
 
-    // Create task object
-    const task = {
-        id: Date.now(),
-        text: taskText,
-        completed: false
-    };
+    // Function to display tasks
+    function displayTasks() {
 
-    // Add task to array
-    tasks.push(task);
+        // Clear current list
+        taskList.innerHTML = "";
 
-    // Display tasks
-    displayTasks();
+        // Loop through tasks
+        tasks.forEach(task => {
 
-    // Clear input
-    taskInput.value = "";
+            const li = document.createElement("li");
+            
+            li.textContent = task.text;
+            //Add completed style
+            if (task.completed) {
+                li.style.textDecoration = "line-through";
+            }
 
-    // Success message
-    Swal.fire({
-        icon: 'success',
-        title: 'Task Added!'
-    });
-}
+            //Toggle completed task
+            li.addEventListener("click", () =>{
+                task.completed = !task.completed;
 
-// Function to display tasks
-function displayTasks() {
+                displayTasks();
+            });
 
-    // Clear current list
-    taskList.innerHTML = "";
+            //Create delete button
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "X";
+            
+            //Delete task
 
-    // Loop through tasks
-    tasks.forEach(task => {
+            deleteBtn.addEventListener("click", (event) =>{
 
-        const li = document.createElement("li");
+                //Prevent li click event
+                event.stopPropagation();
 
-        li.textContent = task.text;
 
-        taskList.appendChild(li);
-    });
-}
+                tasks = tasks.filter(t => t.id !==task.id)
+                displayTasks();
+        });
+         // Add button to list item
+            li.appendChild(deleteBtn);
+            // add list item to ul
+            taskList.appendChild(li);
+    
+    })
+    }
+

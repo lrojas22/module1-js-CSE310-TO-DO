@@ -51,6 +51,9 @@
             icon: 'success',
             title: 'Task Added!'
         });
+
+        
+        console.log("Total Tasks:", countTasks(tasks));
     }
 
     // Function to display tasks
@@ -103,3 +106,14 @@
     })
     }
 
+// Recursive function to count tasks
+function countTasks(tasksArray){
+
+    // Base case
+    if(tasksArray.length === 0){
+        return 0;
+    }
+
+    // Recursive case
+    return 1 + countTasks(tasksArray.slice(1));
+}

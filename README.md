@@ -5,7 +5,7 @@ The application allows users to add tasks, delete tasks, mark tasks as completed
 
 The purpose of creating this software was to improve my understanding of JavaScript fundamentals including DOM manipulation, arrays, event listeners, recursion, and ES6 array functions. Through this project, I learned how JavaScript interacts with HTML elements to create interactive web applications.
 
-the Link for viseo was provide
+[Software Demo Video]https://youtu.be/aFFffV-8t1o
 
 # Development Environment
 The software was developed using

@@ -67,7 +67,7 @@
             li.textContent = task.text;
             //Add completed style
             if (task.completed) {
-                li.style.textDecoration = "line-through";
+               li.classList.add("completed");
             }
 
             //Toggle completed task
@@ -81,6 +81,9 @@
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "X";
             
+            deleteBtn.classList.add("delete-btn");
+
+
             //Delete task
 
             deleteBtn.addEventListener("click", (event) =>{
